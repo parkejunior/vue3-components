@@ -1,24 +1,15 @@
 <template>
-  <v-card :color="cardColor" :dark="cardDark">
-    <v-card-title class="justify-space-between">
-      <div class="text-h4">
-        {{ greeting }}, {{ name }}!
-      </div>
-      <v-icon
-        :color="iconColor"
-        size="48px"
-      >
-        {{ icon }}
-      </v-icon>
-    </v-card-title>
-  </v-card>
+  <div class="h3 mb-0">
+    {{ greeting }}, {{ name }}! {{ emojiString }}
+  </div>
 </template>
 
 <script>
 export default {
   name: 'UserGreeting',
   props: {
-    name: !String
+    name: !String,
+    emoji: Boolean,
   },
   created() {
     const currentHour = (new Date).getHours()
@@ -27,26 +18,29 @@ export default {
       morning: {
         greeting: "Bom dia",
         time: [5, 12],
-        cardColor: "light-blue accent-3",
+        emoji: '⛅️',
+        /*cardColor: "light-blue accent-3",
         cardDark: true,
         icon: "mdi-white-balance-sunny",
-        iconColor: "amber",
+        iconColor: "amber",*/
       },
       afternoon: {
         greeting: "Boa tarde",
         time: [12, 18],
-        cardColor: "amber accent-2",
+        emoji: '☀️',
+        /*cardColor: "amber accent-2",
         cardDark: false,
         icon: "mdi-white-balance-sunny",
-        iconColor: "orange",
+        iconColor: "orange",*/
       },
       evening: {
         greeting: "Boa noite",
         time: [18, 4],
-        cardColor: "deep-purple accent-2",
+        emoji: '🌙',
+        /*cardColor: "deep-purple accent-2",
         cardDark: true,
         icon: "mdi-moon-waning-crescent",
-        iconColor: "amber",
+        iconColor: "amber",*/
       }
     }
 
@@ -60,16 +54,22 @@ export default {
 
     this.changeGreeting = function (daytime) {
       this.greeting = daytime.greeting
-      this.cardColor = daytime.cardColor
+      this.emojiCode = daytime.emoji
+      /*this.cardColor = daytime.cardColor
       this.cardDark = daytime.cardDark
       this.greeting = daytime.greeting
       this.icon = daytime.icon
-      this.iconColor = daytime.iconColor
+      this.iconColor = daytime.iconColor*/
     }
 
     this.changeGreeting(
       this.getGreetingTime(currentHour, greetings)
     );
   },
+  computed: {
+    emojiString() {
+      return this.emoji ? this.emojiCode : ''
+    }
+  }
 }
 </script>
