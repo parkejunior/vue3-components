@@ -1,6 +1,6 @@
 <template>
   <div class="h3 mb-0">
-    {{ greeting }}, {{ name }}! {{ emojiString }}
+    {{ greeting }}, {{ name }}! {{ emojiString }} <slot></slot>
   </div>
 </template>
 
